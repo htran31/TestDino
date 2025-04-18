@@ -44,31 +44,27 @@
       });
 
       function resizeCanvas() {
-        var canvas = document.querySelector("canvas");
+            var canvas = document.querySelector("canvas");
+            var aspectRatio = 16 / 9; // Điều chỉnh theo tỷ lệ mong muốn
 
-        // 80% of the screen size
-        var targetWidth = window.innerWidth * 0.8;
-        var targetHeight = window.innerHeight * 0.8;
+            var width = window.innerWidth;
+            var height = window.innerWidth / aspectRatio;
 
-        // Maintain aspect ratio (optional)
-        var aspectRatio = 1920 / 1080; // or use 16 / 9
-        if (targetWidth / targetHeight > aspectRatio) {
-          targetWidth = targetHeight * aspectRatio;
-        } else {
-          targetHeight = targetWidth / aspectRatio;
+            if (height > window.innerHeight) {
+                height = window.innerHeight;
+                width = height * aspectRatio;
+            }
+
+            // Cập nhật kích thước
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
+
+            // Căn giữa canvas
+            canvas.style.position = "absolute";
+            canvas.style.left = "50%";
+            canvas.style.top = "50%";
+            canvas.style.transform = "translate(-50%, -50%)";
         }
-
-        // Apply size
-        canvas.style.width = targetWidth + "px";
-        canvas.style.height = targetHeight + "px";
-
-        // Center canvas
-        canvas.style.position = "absolute";
-        canvas.style.left = "50%";
-        canvas.style.top = "50%";
-        canvas.style.transform = "translate(-50%, -50%)";
-      }
-
       window.addEventListener("resize", resizeCanvas);
       window.addEventListener("load", resizeCanvas);
     </script>
