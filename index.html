@@ -100,6 +100,32 @@
 
       loadingBar.style.display = "block";
 
+      function resizeCanvas() {
+            var canvas = document.querySelector("canvas");
+            var aspectRatio = 16 / 9; // Điều chỉnh theo tỷ lệ mong muốn
+
+            var width = window.innerWidth;
+            var height = window.innerWidth / aspectRatio;
+
+            if (height > window.innerHeight) {
+                height = window.innerHeight;
+                width = height * aspectRatio;
+            }
+
+            // Cập nhật kích thước
+            canvas.style.width = width + "px";
+            canvas.style.height = height + "px";
+
+            // Căn giữa canvas
+            canvas.style.position = "absolute";
+            canvas.style.left = "50%";
+            canvas.style.top = "50%";
+            canvas.style.transform = "translate(-50%, -50%)";
+        }
+
+        window.addEventListener("resize", resizeCanvas);
+        window.addEventListener("load", resizeCanvas);
+
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
