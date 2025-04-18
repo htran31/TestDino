@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Unity WebGL Player | My Dino</title>
   </head>
-  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1" style="width: 1920px; height: 1080px; background: #231F20"></canvas>
+  <body style="text-align: center; padding: 0; border: 0; margin: 0">
+    <canvas
+      id="unity-canvas"
+      width="1920"
+      height="1080"
+      tabindex="-1"
+      style="width: 1920px; height: 1080px; background: #231f20"
+    ></canvas>
     <script src="Build/Build.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
+        var meta = document.createElement("meta");
+        meta.name = "viewport";
+        meta.content =
+          "width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes";
+        document.getElementsByTagName("head")[0].appendChild(meta);
 
         var canvas = document.querySelector("#unity-canvas");
         canvas.style.width = "100%";
@@ -37,30 +44,33 @@
       });
 
       function resizeCanvas() {
-            var canvas = document.querySelector("canvas");
-            var aspectRatio = 9 / 16; // Điều chỉnh theo tỷ lệ mong muốn
+        var canvas = document.querySelector("canvas");
 
-            var width = window.innerWidth;
-            var height = window.innerWidth / aspectRatio;
+        // 80% of the screen size
+        var targetWidth = window.innerWidth * 0.8;
+        var targetHeight = window.innerHeight * 0.8;
 
-            if (height > window.innerHeight) {
-                height = window.innerHeight;
-                width = height * aspectRatio;
-            }
-
-            // Cập nhật kích thước
-            canvas.style.width = width + "px";
-            canvas.style.height = height + "px";
-
-            // Căn giữa canvas
-            canvas.style.position = "absolute";
-            canvas.style.left = "50%";
-            canvas.style.top = "50%";
-            canvas.style.transform = "translate(-50%, -50%)";
+        // Maintain aspect ratio (optional)
+        var aspectRatio = 1920 / 1080; // or use 16 / 9
+        if (targetWidth / targetHeight > aspectRatio) {
+          targetWidth = targetHeight * aspectRatio;
+        } else {
+          targetHeight = targetWidth / aspectRatio;
         }
 
-        window.addEventListener("resize", resizeCanvas);
-        window.addEventListener("load", resizeCanvas);
+        // Apply size
+        canvas.style.width = targetWidth + "px";
+        canvas.style.height = targetHeight + "px";
+
+        // Center canvas
+        canvas.style.position = "absolute";
+        canvas.style.left = "50%";
+        canvas.style.top = "50%";
+        canvas.style.transform = "translate(-50%, -50%)";
+      }
+
+      window.addEventListener("resize", resizeCanvas);
+      window.addEventListener("load", resizeCanvas);
     </script>
   </body>
 </html>
